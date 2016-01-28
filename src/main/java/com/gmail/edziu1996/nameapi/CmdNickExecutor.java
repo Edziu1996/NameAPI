@@ -21,21 +21,85 @@ public class CmdNickExecutor implements CommandExecutor
 		{
 			String name = args.<String>getOne("name").get();
 			
-			if (args.hasAny("player"))
+			if (name.equals("off"))
 			{
-				Player p = game.getServer().getPlayer(args.<String>getOne("player").get()).orElse(null);
-				if (p != null)
+				if (args.hasAny("player") && src.hasPermission("nameapi.nick.others"))
 				{
-					NameAPI.getPlugin().setDisplayName(p, name);
+					if (src.hasPermission("nameapi.nick.others"))
+					{
+						Player p = game.getServer().getPlayer(args.<String>getOne("player").get()).orElse(null);
+						if (p != null)
+						{
+							NameAPI.getPlugin().setVisibleDisplayName(p, true);
+						}
+						else
+						{
+							src.sendMessage(Text.of("Player must be online!"));
+						}
+					}
+					else
+					{
+						src.sendMessage(Text.of("You do not have permission to enable custom nickname to someone"));
+					}
 				}
 				else
 				{
-					src.sendMessage(Text.of("Player must be online!"));
+					NameAPI.getPlugin().setVisibleDisplayName((Player) src, false);
+				}
+			}
+			else if (name.equals("on"))
+			{
+				if (args.hasAny("player") && src.hasPermission("nameapi.nick.others"))
+				{
+					if (src.hasPermission("nameapi.nick.others"))
+					{
+						Player p = game.getServer().getPlayer(args.<String>getOne("player").get()).orElse(null);
+						if (p != null)
+						{
+							NameAPI.getPlugin().setVisibleDisplayName(p, true);
+						}
+						else
+						{
+							src.sendMessage(Text.of("Player must be online!"));
+						}
+					}
+					else
+					{
+						src.sendMessage(Text.of("You do not have permission to enable custom nickname to someone"));
+					}
+				}
+				else
+				{
+					NameAPI.getPlugin().setVisibleDisplayName((Player) src, true);
 				}
 			}
 			else
 			{
-				NameAPI.getPlugin().setDisplayName((Player) src, name);
+				if (args.hasAny("player"))
+				{
+					if (src.hasPermission("nameapi.nick.others"))
+					{
+						Player p = game.getServer().getPlayer(args.<String>getOne("player").get()).orElse(null);
+						if (p != null)
+						{
+							NameAPI.getPlugin().setDisplayName(p, name);
+							NameAPI.getPlugin().setVisibleDisplayName(p, true);
+						}
+						else
+						{
+							src.sendMessage(Text.of("Player must be online!"));
+						}
+					}
+					else
+					{
+						src.sendMessage(Text.of("You do not have permission to change the nickname to someone"));
+					}
+				}
+				else
+				{
+					NameAPI.getPlugin().setDisplayName((Player) src, name);
+					NameAPI.getPlugin().setVisibleDisplayName((Player) src, true);
+				}
 			}
 		}
 		else

@@ -102,10 +102,37 @@ public class NameAPI
 		
 		if (playerName.map.containsKey(sid))
 		{
-			has = true;
+			if (playerName.map.get(sid).containsKey("customName"))
+			{
+				has = true;
+			}
 		}
 		
 		return has;
+	}
+	
+	public boolean isVisibleDisplayName(Player p)
+	{
+		boolean vis = false;
+		
+		String sid = getUUID(p).toString();
+		
+		if (hasDisplayName(p))
+		{
+			if (playerName.map.get(sid).containsKey("visible"))
+			{
+				vis = playerName.map.get(sid).get("visible").getBoolean();
+			}
+		}
+		return vis;
+	}
+	
+	public void setVisibleDisplayName(Player p, boolean visible)
+	{
+		String sid = getUUID(p).toString();
+		playerName.map.get(sid).get("visible").setValue(visible);
+		playerName.save();
+		playerName.loadByPlayer(p);
 	}
 	
 	public String getDisplayName(Player p)
@@ -115,7 +142,7 @@ public class NameAPI
 		
 		if(hasDisplayName(p))
 		{
-			name = playerName.map.get(sid);
+			name = playerName.map.get(sid).get("customName").getString();
 		}
 		
 		return name;

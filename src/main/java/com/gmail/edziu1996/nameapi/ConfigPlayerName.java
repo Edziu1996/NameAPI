@@ -10,7 +10,7 @@ import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 
 public class ConfigPlayerName extends ConfigManager
 {
-	Map<String, String> map = new HashMap<String, String>();
+	Map<String, Map<Object, ? extends CommentedConfigurationNode>> map = new HashMap<String, Map<Object,? extends CommentedConfigurationNode>>();
 
 	public ConfigPlayerName(String name)
 	{
@@ -24,7 +24,7 @@ public class ConfigPlayerName extends ConfigManager
 		{
 			for (Entry<Object, ? extends CommentedConfigurationNode> e : get().getChildrenMap().entrySet())
 			{
-				map.put(e.getKey().toString(), e.getValue().getString());
+				map.put(e.getKey().toString(), e.getValue().getChildrenMap());
 			}
 		}
 	}
@@ -38,7 +38,7 @@ public class ConfigPlayerName extends ConfigManager
 			if (get().getChildrenMap().containsKey(sid))
 			{
 				map.remove(sid);
-				map.put(sid, get().getNode(sid).getString());
+				map.put(sid, get().getNode(sid).getChildrenMap());
 			}
 			else
 			{
