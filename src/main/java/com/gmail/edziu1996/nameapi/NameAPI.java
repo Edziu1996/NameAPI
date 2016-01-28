@@ -2,6 +2,7 @@ package com.gmail.edziu1996.nameapi;
 
 import java.nio.file.Path;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
@@ -132,6 +133,20 @@ public class NameAPI
 		playerName.get().removeChild(getUUID(p).toString());
 		playerName.save();
 		playerName.loadByPlayer(p);
+	}
+	
+	public String getPlayerNameFormUUID(UUID id, Game game)
+	{
+		String name = null;
+		
+		try
+		{
+			name = game.getServer().getGameProfileManager().get(id, true).get().getName();
+		}
+		catch (InterruptedException e) {}
+		catch (ExecutionException e) {}
+
+		return name;
 	}
 	
 	
