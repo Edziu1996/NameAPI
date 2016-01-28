@@ -9,6 +9,7 @@ public class CommandsManager
 {
 	static CommandSpec cmdNick = CommandSpec.builder()
 			.description(Text.of("This command change display name"))
+			.permission("nameapi.nick")
 			.arguments(
 					GenericArguments.string(Text.of("name")),
 					GenericArguments.optional(GenericArguments.string(Text.of("player")))
