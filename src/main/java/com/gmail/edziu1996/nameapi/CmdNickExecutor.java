@@ -23,14 +23,14 @@ public class CmdNickExecutor implements CommandExecutor
 			
 			if (name.equals("off"))
 			{
-				if (args.hasAny("player") && src.hasPermission("nameapi.nick.others"))
+				if (args.hasAny("player"))
 				{
 					if (src.hasPermission("nameapi.nick.others"))
 					{
 						Player p = game.getServer().getPlayer(args.<String>getOne("player").get()).orElse(null);
 						if (p != null)
 						{
-							NameAPI.getPlugin().setVisibleDisplayName(p, true);
+							NameAPI.getPlugin().setVisibleDisplayName(p, false);
 						}
 						else
 						{
@@ -49,7 +49,7 @@ public class CmdNickExecutor implements CommandExecutor
 			}
 			else if (name.equals("on"))
 			{
-				if (args.hasAny("player") && src.hasPermission("nameapi.nick.others"))
+				if (args.hasAny("player"))
 				{
 					if (src.hasPermission("nameapi.nick.others"))
 					{

@@ -19,7 +19,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import com.google.inject.Inject;
 
-@Plugin(id="NameAPI", version="0.2.4", name="NameAPI")
+@Plugin(id="NameAPI", version="0.2.6", name="NameAPI")
 public class NameAPI
 {
 	@Inject
@@ -130,7 +130,7 @@ public class NameAPI
 	public void setVisibleDisplayName(Player p, boolean visible)
 	{
 		String sid = getUUID(p).toString();
-		playerName.map.get(sid).get("visible").setValue(visible);
+		playerName.get().getNode(sid, "visible").setValue(visible);
 		playerName.save();
 		playerName.loadByPlayer(p);
 	}
@@ -150,7 +150,7 @@ public class NameAPI
 	
 	public void setDisplayName(Player p, String name)
 	{
-		playerName.get().getNode(getUUID(p).toString()).setValue(name);
+		playerName.get().getNode(getUUID(p).toString(), "customName").setValue(name);
 		playerName.save();
 		playerName.loadByPlayer(p);
 	}
