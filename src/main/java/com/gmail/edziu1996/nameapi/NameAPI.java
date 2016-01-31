@@ -19,7 +19,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import com.google.inject.Inject;
 
-@Plugin(id="NameAPI", version="0.2.6", name="NameAPI")
+@Plugin(id="NameAPI", version="0.2.7", name="NameAPI")
 public class NameAPI
 {
 	@Inject
