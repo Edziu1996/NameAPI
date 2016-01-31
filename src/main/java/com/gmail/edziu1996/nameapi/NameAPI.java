@@ -165,16 +165,33 @@ public class NameAPI
 	public String getPlayerNameFormUUID(UUID id, Game game)
 	{
 		String name = null;
-		
+
 		try
 		{
 			name = game.getServer().getGameProfileManager().get(id, true).get().getName();
 		}
-		catch (InterruptedException e) {}
-		catch (ExecutionException e) {}
+		catch (InterruptedException e)
+		{}
+		catch (ExecutionException e)
+		{}
 
 		return name;
 	}
 	
+	public UUID getPlayerUUIDFromName(String name, Game game)
+	{
+		UUID id = null;
+		
+		try
+		{
+			id = game.getServer().getGameProfileManager().get(name, true).get().getUniqueId();
+		}
+		catch (InterruptedException e)
+		{}
+		catch (ExecutionException e)
+		{}
+		
+		return id;
+	}
 	
 }
