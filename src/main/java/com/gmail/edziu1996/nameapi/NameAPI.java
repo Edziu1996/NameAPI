@@ -19,7 +19,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import com.google.inject.Inject;
 
-@Plugin(id="NameAPI", version="0.2.7", name="NameAPI")
+@Plugin(id="NameAPI", version="0.3.0", name="NameAPI")
 public class NameAPI
 {
 	@Inject
@@ -168,7 +168,7 @@ public class NameAPI
 
 		try
 		{
-			name = game.getServer().getGameProfileManager().get(id, true).get().getName();
+			name = game.getServer().getGameProfileManager().get(id, true).get().getName().get();
 		}
 		catch (InterruptedException e)
 		{}
