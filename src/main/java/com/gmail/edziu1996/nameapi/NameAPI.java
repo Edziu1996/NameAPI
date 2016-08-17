@@ -19,7 +19,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import com.google.inject.Inject;
 
-@Plugin(id="nameapi", version="0.3.1", name="NameAPI")
+@Plugin(id="nameapi", version="0.3.2", name="NameAPI")
 public class NameAPI
 {
 	@Inject
@@ -162,34 +162,50 @@ public class NameAPI
 		playerName.loadByPlayer(p);
 	}
 	
-	public String getPlayerNameFormUUID(UUID id, Game game)
+	public String getPlayerNameFormUUID(UUID id, Game game) throws NullPointerException
 	{
 		String name = null;
-
-		try
+		
+		Player p = game.getServer().getPlayer(id).orElse(null);
+		
+		if (p != null)
 		{
-			name = game.getServer().getGameProfileManager().get(id, true).get().getName().get();
+			name = p.getName();
 		}
-		catch (InterruptedException e)
-		{}
-		catch (ExecutionException e)
-		{}
+		
+		if (p == null)
+		{
+			try
+			{
+				name = game.getServer().getGameProfileManager().get(id, true).get().getName().get();
+			}
+			catch (InterruptedException | ExecutionException e)
+			{}
+		}
 
 		return name;
 	}
 	
-	public UUID getPlayerUUIDFromName(String name, Game game)
+	public UUID getPlayerUUIDFromName(String name, Game game) throws NullPointerException
 	{
 		UUID id = null;
 		
-		try
+		Player p = game.getServer().getPlayer(name).orElse(null);
+		
+		if (p != null)
 		{
-			id = game.getServer().getGameProfileManager().get(name, true).get().getUniqueId();
+			id = p.getUniqueId();
 		}
-		catch (InterruptedException e)
-		{}
-		catch (ExecutionException e)
-		{}
+		
+		if (id == null)
+		{
+			try
+			{
+				id = game.getServer().getGameProfileManager().get(name, true).get().getUniqueId();
+			}
+			catch (InterruptedException | ExecutionException e)
+			{}
+		}
 		
 		return id;
 	}
